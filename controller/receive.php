@@ -81,8 +81,7 @@ function eliminarProducto($con, $id)
 {
   $producto = new Producto($id, '', '', 0, 0, '', 0,'');
   $producto->eliminarProducto($con, $id);
-
-  return ['Ok'];
+  
 }
 
 echo json_encode($response);
