@@ -7,8 +7,7 @@ const eliminar = (id) =>
 
     postData(url, data).
     then(response => {
-      getData();
-      // console.log(response);
+      getData();      
       alertify.success('Eliminado');
     }); 
   },
@@ -38,6 +37,7 @@ const editarProducto = (id) =>
   then(() => {
     cambiarEventosGuardar();
     getData();
+    alertify.success('Actualizado');
     let theModal =  bootstrap.Modal.getInstance(document.getElementById('modal'))
     theModal.hide();
   });
@@ -45,13 +45,6 @@ const editarProducto = (id) =>
 
 const cambiarEventosActualizar = (id) =>
 {
-  // document.getElementById('guardarProducto').removeEventListener('click', construirData);
-  // document.getElementById('guardarProducto').addEventListener('click', function()
-  // {
-  //   editarProducto(id);
-  // });
-  // document.getElementById('guardarProducto').addEventListener('click', editarProducto(e, id));
-
   document.getElementById('guardarProducto').setAttribute('onclick', `editarProducto(${id})`);  
 
   document.getElementById('modalTittle').innerText = 'Actualizar producto';
@@ -92,7 +85,7 @@ const editar = (id) =>
 const createTable = (data) =>
 {
   const cardBody = document.getElementById('cardBody');
-  // console.log(data);
+  
   let html = '';
   if(data.length == 0)
   {
@@ -130,7 +123,7 @@ const createTable = (data) =>
         <td>${producto.categoria}</td>
         <td>${producto.stock}</td>
         <td>${producto.fecha_creacion}</td>
-        <td>
+        <td class="text-center">
           <button class="btn" onclick="editar(${producto.ID})">
             <img src="../public/icons/edit-svgrepo-com.svg" alt="" height="40">
           </button>
@@ -174,8 +167,7 @@ const getData = () =>
 }
 
 const addEvents = () =>
-{
-  // document.getElementById('guardarProducto').addEventListener('click', construirData);
+{  
   getData();
 }
 
@@ -212,6 +204,8 @@ const construirData = () =>
 
     let theModal =  bootstrap.Modal.getInstance(document.getElementById('modal'))
     theModal.hide();
+
+    alertify.success('Guardado');
   })
 
 }
