@@ -139,4 +139,14 @@ class Producto
 
     $con->query($query);
   }
+
+  public function venderProducto($con, $vendio)
+  {
+    $query = "update productos 
+      set stock = stock - ".$vendio."
+    WHERE ID = ".$this->id."
+    ";
+
+    $con->query($query);
+  }
 }

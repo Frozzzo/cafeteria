@@ -25,6 +25,8 @@ switch ($data['action']) {
   case 5:
     $response = eliminarProducto($con, $data['ID']);
     break;
+  case 6:
+    venderProducto($con, $data);
 }
 
 function actualizarProducto($data, $con)
@@ -82,6 +84,13 @@ function eliminarProducto($con, $id)
   $producto = new Producto($id, '', '', 0, 0, '', 0,'');
   $producto->eliminarProducto($con, $id);
   
+}
+
+function venderProducto($con, $data)
+{
+  $producto = new Producto($data['ID'], '', '', 0, 0, '', 0,'');
+
+  $producto->venderProducto($con, $data['vendio']);
 }
 
 echo json_encode($response);

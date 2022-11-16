@@ -1,6 +1,32 @@
+const vender = (id) =>
+{
+  const url = "/controller/receive.php";
+  const data = {action: 3, ID: id};
+  
+  postData(url, data)
+  .then(response => {    
+    alertify.prompt( 'Vender', '¿Cuantas unidades desea vender?', '0'
+    , (evt, value) => {
+      if(Number(value) > Number(response.stock))
+      {
+        alertify.error('No puedes vender más unidades de las existentes');
+      }else{
+        let eliminarData = {action: 6, ID: id, vendio: Number(value)};
+        postData(url, eliminarData).
+        then(response =>{
+          alertify.success('Vendido!');
+          getData();
+        });
+      }
+    }
+    , function() { alertify.error('Cancelar') }) 
+  })
+
+}
+
 const eliminar = (id) =>
 {
-  alertify.confirm("¿Estas seguro de eliminar el producto?.",
+  alertify.confirm("¿Estas seguro de eliminar el producto?",
   function(){
     const url = "/controller/receive.php";
     const data = {ID: id, eliminar: 1, action: 5 };
@@ -129,6 +155,9 @@ const createTable = (data) =>
           </button>
           <button class="btn" onclick="eliminar(${producto.ID})">
             <img src="../public/icons/delete-svgrepo-com.svg" alt="" height="40">
+          </button>
+          <button class="btn" onclick="vender(${producto.ID})">
+            <img src="../public/icons/cash-svgrepo-com.svg" alt="" height="40">
           </button>
         </td>
       `;
